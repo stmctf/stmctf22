@@ -66,6 +66,9 @@ Based on that info, could you give me the output of input.txt?
 ---
 
 ## Çözüm:
+
+### Java:
+
 ```java
 package ctf;
 
@@ -138,4 +141,55 @@ public class CTF {
 
 }
 
+```
+
+### Python:
+
+```python
+data = "++++++++++++++++++++++++++++++++++++++++++++++++.++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++.++.----------->@>>.<@<<<.@<@<@<++++<.<@<@<<@<-----.<<<<<.<@<@<+<.+>@.-------.-------->>>.<@<@<++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++.++>>>.<@<@<<.-----------<.>@>@<@><<.>@>@++++<.>@-----.>>>.<@<@<+<.>@+.-------.--------.+++++++++++++>>>>>>.<@<@<@<@<@<<.>@++.-------<.>@+++++++<<<.>@>@>@<<.>@>@<.>@-<.>@++++++++++++<<<.>@>@>@+++++++++++€"
+
+stack = [0]
+
+def firstToLast():
+    stack.insert(len(stack)-1,stack.pop(0))
+
+def lastToFirst():
+    stack.insert(0,stack.pop(len(stack)-1))
+
+def incLast():
+    stack[-1] += 1
+
+def decLast():
+    stack[-1] -= 1
+
+def exchangeLast2():
+    stack[-1],stack[-2]=stack[-2],stack[-1]
+
+def duplicateLast():
+    stack.append(stack[-1])
+
+def printAscii():
+    result = ''
+    for i in stack:
+        result = result+chr(i)
+    print(result)
+
+def compiler(data):
+    if data == '+':
+        incLast()
+    if data == '-':
+        decLast()
+    if data == '.':
+        duplicateLast()
+    if data == '@':
+        exchangeLast2()
+    if data == '>':
+        firstToLast()
+    if data == '<':
+        lastToFirst()
+    if data == '€':
+        printAscii()
+
+for x in data:
+    compiler(x)
 ```
